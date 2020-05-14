@@ -1,1 +1,4 @@
-TODO
+Required Packages
+-----------------
+* matplotlib
+* pyshp
