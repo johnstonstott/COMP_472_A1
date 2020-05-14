@@ -7,11 +7,16 @@
 import os
 import sys
 
-import shapefile  # Provided by pyshp
-import numpy as np
+import constants
+import user_options
+
+import shapefile
 from matplotlib import pyplot
 
-print("-- Montreal Crime Analytics --\n")
+print("-- Montreal Crime Analytics --")
+
+# Run function in user_options.py to collect values from user.
+user_options.get_user_options()
 
 # Open the crime_dt.shp file to read the data.
 print("Opening data file... ", end="")
@@ -43,7 +48,7 @@ for i in range(len(records)):
 
 zval = [[0, 0, 1, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 0, 0], [1, 1, 0, 1, 0], [1, 0, 0, 0, 0]]
 
-pyplot.imshow(zval, extent=[-5, 5, -5, 5])
+pyplot.imshow(zval, extent=[-5, 5, -10, 10])
 
 x1, y1 = [-1, 12, 12], [1, 4, 16]
 
