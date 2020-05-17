@@ -43,12 +43,17 @@ for i in range(len(data)):
     lon_list.append(data[i].shape.__geo_interface__["coordinates"][0])
     lat_list.append(data[i].shape.__geo_interface__["coordinates"][1])
 
-plt.scatter(lon_list, lat_list)
-plt.show()
-
+# Generate a 2D array and print statistics about the crime data.
 crimes = crime_analysis.count_crimes(lon_list, lat_list, user_options.grid_size)
+crime_analysis.display_stats(crimes)
+
+
 
 plt.imshow(crimes, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
+
+# x1, y1 = [-73.59, -73.55], [45.49, 45.53]
+# plt.plot(x1, y1)
+
 plt.show()
 
 print("Done")
