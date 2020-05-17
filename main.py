@@ -31,7 +31,7 @@ if os.path.exists("crime_dt.shp"):
     data = shp_file.shapeRecords()
     print("Done\n")
 else:
-    print("File not found. Please make sure the data files are in the same directory as main.py.")
+    print("File not found.\nPlease make sure the data files are in the same directory as main.py.")
     print("Program terminating.")
     sys.exit(0)
 
@@ -43,14 +43,12 @@ for i in range(len(data)):
     lon_list.append(data[i].shape.__geo_interface__["coordinates"][0])
     lat_list.append(data[i].shape.__geo_interface__["coordinates"][1])
 
-print(lon_list)
-print(lat_list)
-
 plt.scatter(lon_list, lat_list)
 plt.show()
 
-# zval = [[0, 0, 1, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 0, 0], [1, 1, 0, 1, 0], [1, 0, 0, 0, 0]]
-# plt.imshow(zval, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
-# plt.show()
+crimes = crime_analysis.count_crimes(lon_list, lat_list, user_options.grid_size)
+
+plt.imshow(crimes, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
+plt.show()
 
 print("Done")
