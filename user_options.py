@@ -6,6 +6,10 @@
 
 grid_size = 0.0
 threshold = 0
+orig_lon = 0.0
+orig_lat = 0.0
+dest_lon = 0.0
+dest_lat = 0.0
 
 
 # Ask user to specify options and store them.
@@ -24,14 +28,38 @@ def get_user_options():
         print("\nInvalid value specified.\n"
               "You must enter a value between 0 and 100.\n"
               "Please try again.")
-        reset_values()
+        reset_user_options()
         get_user_options()
 
 
 # Resets values to default in case user needs to restart.
-def reset_values():
+def reset_user_options():
     global grid_size
     grid_size = 0.0
 
     global threshold
     threshold = 0
+
+
+# Collect and store the begin and end coordinates for path finding.
+def get_coordinates():
+    print("\nWhat should the origin be?\nEnter in the form '<longitude>, <latitude>'.")
+    response = input("Please type your choice and press enter: ")
+    response.split(",")
+
+    # TODO
+
+
+# Reset to default in case user needs to restart.
+def reset_coordinates():
+    global orig_lon
+    orig_lon = 0.0
+
+    global orig_lat
+    orig_lat = 0.0
+
+    global dest_lon
+    dest_lon = 0.0
+
+    global dest_lat
+    dest_lat = 0.0

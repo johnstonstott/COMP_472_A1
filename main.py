@@ -20,7 +20,7 @@ print("-- Montreal Crime Analytics --")
 # Run function in user_options.py to collect values from user.
 # user_options.get_user_options()
 user_options.grid_size = 0.002
-user_options.threshold = 50
+user_options.threshold = 100
 
 # Open the crime_dt.shp file to read the data.
 print("\nOpening data file... ", end="")

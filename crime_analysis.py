@@ -74,26 +74,31 @@ def generate_grid_data(grid_size, threshold, array):
     # sorted_array is a 1D array sorted min to max.
     flat_array = array.flatten()
     sorted_array = np.sort(array.flatten())
+
+    # Find the index corresponding to the threshold.
     cutoff_index = math.ceil(len(sorted_array) * (threshold / 100))
-    print(cutoff_index)
-    max_value = 0
+    cutoff_value = 0
 
     if cutoff_index < len(sorted_array):
         # If cutoff_index is same as the array index, it means the user put such a high percentage that all blocks are
         # to be considered crime blocks.
 
         # Find the value at the cutoff index and use it to compare and see which blocks are crime blocks.
-        max_value = sorted_array[cutoff_index]
+        cutoff_value = sorted_array[cutoff_index]
 
         for i in range(len(flat_array)):
-            if flat_array[i] >= max_value:
+            if flat_array[i] >= cutoff_value:
                 plot_array[i] = 1
-    else:
-        pass
-        # plot_array = np.ones(array_structure[0] * array_structure[1])
 
     plot_array.resize((array_structure[0], array_structure[1]))
-    print(plot_array)
     print("Done\n")
-    print("Any block with", int(max_value), "or more crimes is considered a high crime area.\n")
+
+    # Print info about blocked areas to user depending on the resulting situation.
+    if np.max(plot_array) == 0:
+        print("No blocks were marked as high crime areas.\n")
+    elif np.min(plot_array) == 1:
+        print("All blocks are marked as high crime areas.\n")
+    else:
+        print("Any block with", int(cutoff_value), "or more crimes is considered a high crime area.\n")
+
     return plot_array
