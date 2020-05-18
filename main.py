@@ -20,7 +20,6 @@ print("-- Montreal Crime Analytics --")
 # Run function in user_options.py to collect values from user.
 # user_options.get_user_options()
 user_options.grid_size = 0.002
-user_options.metric = "M"
 user_options.threshold = 50
 
 # Open the crime_dt.shp file to read the data.
@@ -47,13 +46,22 @@ for i in range(len(data)):
 crimes = crime_analysis.count_crimes(lon_list, lat_list, user_options.grid_size)
 crime_analysis.display_stats(crimes)
 
+# Generate array to use to display grid, depending on user options.
+grid_data = crime_analysis.generate_grid_data(user_options.grid_size, user_options.threshold, crimes)
 
 
-plt.imshow(crimes, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
+# Used to show the grid with no path.
+def show_grid(array):
+    print("Displaying generated grid... ", end="")
+    plt.imshow(array, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
+    plt.show()
+    print("Done\n")
+
+
+# Display the grid.
+show_grid(grid_data)
+
+# Ask for a starting and ending coordinate for A* path finding.
 
 # x1, y1 = [-73.59, -73.55], [45.49, 45.53]
 # plt.plot(x1, y1)
-
-plt.show()
-
-print("Done")
