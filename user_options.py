@@ -5,8 +5,11 @@
 # --------------------------------------------------------
 
 grid_size = 0.0
-metric = ""
 threshold = 0
+orig_lon = 0.0
+orig_lat = 0.0
+dest_lon = 0.0
+dest_lat = 0.0
 
 
 # Ask user to specify options and store them.
@@ -16,33 +19,47 @@ def get_user_options():
     global grid_size
     grid_size = float(response)
 
-    print("\nWhich metric for calculating crime rate?\nT for total count, A for average, S for standard deviation, "
-          "M for median.")
-    response = input("Please type your choice and press enter: ")
-    global metric
-    metric = str(response)
-
     print("\nWhich threshold for crime rate?\nEnter a percentage between 0 and 100.")
     response = input("Please type your choice and press enter: ")
     global threshold
     threshold = int(response)
 
-    if metric != "T" and metric != "A" and metric != "S" and metric != "M":
-        print("Metric is", metric)
+    if threshold < 0 or threshold > 100:
         print("\nInvalid value specified.\n"
-              "You must enter 'T', 'A', 'S', or 'M' for the metric.\n"
+              "You must enter a value between 0 and 100.\n"
               "Please try again.")
-        reset_values()
+        reset_user_options()
         get_user_options()
 
 
 # Resets values to default in case user needs to restart.
-def reset_values():
+def reset_user_options():
     global grid_size
     grid_size = 0.0
 
-    global metric
-    metric = ""
-
     global threshold
     threshold = 0
+
+
+# Collect and store the begin and end coordinates for path finding.
+def get_coordinates():
+    print("\nWhat should the origin be?\nEnter in the form '<longitude>, <latitude>'.")
+    response = input("Please type your choice and press enter: ")
+    response.split(",")
+
+    # TODO
+
+
+# Reset to default in case user needs to restart.
+def reset_coordinates():
+    global orig_lon
+    orig_lon = 0.0
+
+    global orig_lat
+    orig_lat = 0.0
+
+    global dest_lon
+    dest_lon = 0.0
+
+    global dest_lat
+    dest_lat = 0.0
