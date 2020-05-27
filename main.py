@@ -10,6 +10,7 @@ import sys
 import constants
 import crime_analysis
 import user_options
+import path_finding
 
 import shapefile
 import numpy as np
@@ -20,7 +21,7 @@ print("-- Montreal Crime Analytics --")
 # Run function in user_options.py to collect values from user.
 # user_options.get_user_options()
 user_options.grid_size = 0.002
-user_options.threshold = 100
+user_options.threshold = 80
 
 # Open the crime_dt.shp file to read the data.
 print("\nOpening data file... ", end="")
@@ -55,13 +56,19 @@ def show_grid(array):
     print("Displaying generated grid... ", end="")
     plt.imshow(array, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
     plt.show()
-    print("Done\n")
+    print("Done")
 
 
 # Display the grid.
 show_grid(grid_data)
 
 # Ask for a starting and ending coordinate for A* path finding.
+user_options.get_orig_coordinates()
+user_options.get_dest_coordinates()
+
+print(user_options.orig_lon, user_options.orig_lat, user_options.dest_lon, user_options.dest_lat)
 
 # x1, y1 = [-73.59, -73.55], [45.49, 45.53]
+# plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
 # plt.plot(x1, y1)
+# plt.show()

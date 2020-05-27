@@ -11,3 +11,8 @@ Required Packages
 have to run file from root; e.g. command python3.8 src/main.py
 
 need to use python3
+
+(invalid) top left -73.5892, 45.5291
+(valid) top right -73.551, 45.5293
+(invalid) bottom left -73.5894, 45.4907
+(invalid) bottom right -73.5505, 45.4908
