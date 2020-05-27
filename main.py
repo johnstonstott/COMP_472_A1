@@ -70,7 +70,8 @@ user_options.orig_lat = 45.529
 user_options.dest_lon = -73.5508
 user_options.dest_lat = 45.4932
 
-path_finding.generate_grid(grid_data, 0.002)
+# accessible_grid represents the nodes that can be accessed because they are not edges.
+accessible_grid = path_finding.generate_grid(grid_data, 0.002)
 
 # x1, y1 = [-73.59, -73.55], [45.49, 45.53]
 # plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])

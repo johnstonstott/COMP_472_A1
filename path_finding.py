@@ -12,13 +12,13 @@ import numpy as np
 
 
 class Node:
-    def __init__(self, x, y, is_block):
-        self.x = x
-        self.y = y
+    def __init__(self, x_pos, y_pos, is_block):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
         self.is_block = is_block
 
     def __str__(self):
-        return f"({self.x}, {self.y}) {self.is_block}"
+        return f"({self.x_pos}, {self.y_pos}) {self.is_block}"
 
 
 # Creates a 2D array of nodes to be used for path finding.
@@ -31,15 +31,14 @@ def generate_grid(crime_data, grid_size):
     grid = [[None for i in range(0, x_size)] for j in range(0, y_size)]
 
     for i in range(0, x_size):
-        for j in range(0, y_size):
-            grid[i][j] = Node(i + 1, j, crime_data[i][j] == 1)
+        for j in range(1, y_size + 1):
+            # grid[i][j - 1] = Node(j, i, crime_data[i][j] == 1)
+            grid[j - 1][i] = Node(j, i, crime_data[i][j] == 1)
 
-    print(str(grid[0][5]))
-    # for j in range(0, y_size):
-    #     for i in range(1, x_size + 1):
-    #         # print(int(crime_data[i][j]), " ", end="")
-    #         grid[i][j] = Node(i, j, crime_data[i][j] == 1)
-    #     print("")
+    return grid
+
+# def check_if_surrounded(grid, node):
+
 
 # Takes a list [lon, lat] and returns the corresponding grid coordinates based on the grid size.
 def coord_to_grid(coords, grid_size):
