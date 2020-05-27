@@ -73,8 +73,6 @@ def get_orig_coordinates():
     lat_limit = constants.TOT_LAT / grid_size - 1
     orig_node = path_finding.coord_to_grid([orig_lon, orig_lat], grid_size)
 
-    print(orig_node, " -- ", lon_limit, lat_limit)
-
     if not 0 < orig_node[0] <= lon_limit or not 0 <= orig_node[1] < lat_limit:
         print("\nInvalid value(s) specified.\n"
               "One of the points corresponds to the boundary edge of the map, which is inaccessible.\n"
@@ -106,11 +104,11 @@ def get_dest_coordinates():
 
     # Verify that selected coordinates are not on the inaccessible edges.
     global grid_size
-    lon_nodes = constants.TOT_LON / grid_size
-    lat_nodes = constants.TOT_LAT / grid_size
+    lon_limit = constants.TOT_LON / grid_size - 1
+    lat_limit = constants.TOT_LAT / grid_size - 1
     dest_node = path_finding.coord_to_grid([dest_lon, dest_lat], grid_size)
 
-    if not 0 < dest_node[0] <= lon_nodes or not 0 <= dest_node[1] < lat_nodes:
+    if not 0 < dest_node[0] <= lon_limit or not 0 <= dest_node[1] < lat_limit:
         print("\nInvalid value(s) specified.\n"
               "One of the points corresponds to the boundary edge of the map, which is inaccessible.\n"
               "Please try again.")

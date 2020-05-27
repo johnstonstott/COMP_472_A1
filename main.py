@@ -63,10 +63,14 @@ def show_grid(array):
 show_grid(grid_data)
 
 # Ask for a starting and ending coordinate for A* path finding.
-user_options.get_orig_coordinates()
-user_options.get_dest_coordinates()
+# user_options.get_orig_coordinates()
+# user_options.get_dest_coordinates()
+user_options.orig_lon = -73.5872
+user_options.orig_lat = 45.529
+user_options.dest_lon = -73.5508
+user_options.dest_lat = 45.4932
 
-print(user_options.orig_lon, user_options.orig_lat, user_options.dest_lon, user_options.dest_lat)
+path_finding.generate_grid(grid_data, 0.002)
 
 # x1, y1 = [-73.59, -73.55], [45.49, 45.53]
 # plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
