@@ -20,7 +20,8 @@ print("-- Montreal Crime Analytics --")
 # Run function in user_options.py to collect values from user.
 # user_options.get_user_options()
 user_options.grid_size = 0.002
-user_options.threshold = 85
+user_options.threshold = 80
+
 # Open the crime_dt.shp file to read the data.
 print("\nOpening data file... ", end="")
 
@@ -69,17 +70,18 @@ user_options.dest_lon = -73.5508
 user_options.dest_lat = 45.4932
 
 # accessible_grid represents the nodes that can be accessed because they are not edges.
-accessible_grid = path_finding.generate_grid(grid_data, user_options.grid_size)
+accessible_grid = path_finding.generate_grid(user_options.grid_size)
 
 # Nodes of the origin and destination indicated by the user.
 orig_node_pos = path_finding.coord_to_grid([user_options.orig_lon, user_options.orig_lat], user_options.grid_size)
-orig_node = path_finding.Node(orig_node_pos[0], orig_node_pos[1], False)
+orig_node = path_finding.Node(orig_node_pos[0], orig_node_pos[1])
 dest_node_pos = path_finding.coord_to_grid([user_options.dest_lon, user_options.dest_lat], user_options.grid_size)
-dest_node = path_finding.Node(dest_node_pos[0], dest_node_pos[1], False)
+dest_node = path_finding.Node(dest_node_pos[0], dest_node_pos[1])
 
 # Run A* algorithm located in path_finding.py.
 path = path_finding.find_path(orig_node, dest_node, accessible_grid, grid_data)
 
+# Store coordinates of solution to display.
 solution_lons = []
 solution_lats = []
 
@@ -88,8 +90,9 @@ for n in path:
     solution_lons.append(coords[0])
     solution_lats.append(coords[1])
 
+# Show the path on the map.
 if len(path) > 0:
-    print("Please close the map when you are done viewing it.")
+    print("Please close the map when you are done viewing the optimal path.")
 
     print("\nDisplaying optimal path... ", end="")
     plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])

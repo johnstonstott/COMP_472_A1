@@ -12,17 +12,16 @@ import constants
 
 
 class Node:
-    def __init__(self, x_pos, y_pos, is_block):
+    def __init__(self, x_pos, y_pos):
         self.x_pos = x_pos
         self.y_pos = y_pos
-        self.is_block = is_block
         self.f = 0
         self.g = 0
         self.h = 0
         self.prev = []
 
     def __str__(self):
-        return f"({self.x_pos}, {self.y_pos}, {len(self.prev)})"
+        return f"({self.x_pos}, {self.y_pos})"
 
     # This is so when we add a Node to PriorityQueue, de-queueing returns the node with the lowest f value.
     def __lt__(self, other):
@@ -41,6 +40,11 @@ def find_path(orig, dest, node_grid, crime_grid):
     closed_list = []
 
     while len(open_list.queue) > 0:
+        # Check for exceeding time limit.
+        current_time = time.time()
+        if current_time - start_time > 9.9:
+            break
+
         # Retrieves the node with the lowest f.
         curr = open_list.get()
         curr.prev.append(curr)
@@ -50,6 +54,7 @@ def find_path(orig, dest, node_grid, crime_grid):
             end_time = time.time()
             time_elapsed = end_time - start_time
             print("Done\n\nThe optimal path has been found in", time_elapsed, "seconds.")
+            print("The cost of this path is", curr.g)
             return curr.prev
 
         # Search the surrounding nodes of current.
@@ -233,7 +238,7 @@ def revisit_path(node):
 
 
 # Creates a 2D array of nodes to be used for path finding.
-def generate_grid(crime_data, grid_size):
+def generate_grid(grid_size):
     # Determine what the dimensions will be based on the grid size. Subtract 1 to account for inaccessible edges.
     x_size = int(constants.TOT_LON / grid_size) - 1
     y_size = int(constants.TOT_LAT / grid_size) - 1
@@ -243,7 +248,7 @@ def generate_grid(crime_data, grid_size):
 
     for i in range(0, x_size):
         for j in range(1, y_size + 1):
-            grid[j - 1][i] = Node(j, i, crime_data[i][j] == 1)
+            grid[j - 1][i] = Node(j, i)
 
     return grid
 

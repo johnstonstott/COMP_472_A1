@@ -15,7 +15,9 @@ Required Version
 Instructions
 ------------
 1. Install the required packages listed above.
-2. In the command line, navigate to the directory containing the main.py file.
+2. In the command line, navigate to the directory containing the main.py file. The
+crime_dt data files MUST be in the same directory as main.py, otherwise the program will
+not work.
 3. Begin the program by running the main.py file with Python. I used the following
 command:
 
@@ -23,7 +25,7 @@ python3 main.py
 
 4. Follow the instructions in the command line to complete the execution of the program.
 5. To use the program with different inputs, complete execution or exit by pressing
-<Ctrl + C> and running the program again in the same was as step 3.
+<Ctrl + C> and then run the program again in the same way as in step 3.
 
 Example Program Execution
 -------------------------
