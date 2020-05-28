@@ -13,7 +13,6 @@ import user_options
 import path_finding
 
 import shapefile
-import numpy as np
 from matplotlib import pyplot as plt
 
 print("-- Montreal Crime Analytics --")
@@ -71,9 +70,33 @@ user_options.dest_lon = -73.5508
 user_options.dest_lat = 45.4932
 
 # accessible_grid represents the nodes that can be accessed because they are not edges.
-accessible_grid = path_finding.generate_grid(grid_data, 0.002)
+accessible_grid = path_finding.generate_grid(grid_data, user_options.grid_size)
 
-# x1, y1 = [-73.59, -73.55], [45.49, 45.53]
-# plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
-# plt.plot(x1, y1)
-# plt.show()
+# Nodes of the origin and destination indicated by the user.
+orig_node_pos = path_finding.coord_to_grid([user_options.orig_lon, user_options.orig_lat], user_options.grid_size)
+orig_node = path_finding.Node(orig_node_pos[0], orig_node_pos[1], False)
+dest_node_pos = path_finding.coord_to_grid([user_options.dest_lon, user_options.dest_lat], user_options.grid_size)
+dest_node = path_finding.Node(dest_node_pos[0], dest_node_pos[1], False)
+
+# Run A* algorithm located in path_finding.py.
+path = path_finding.find_path(orig_node, dest_node, accessible_grid, grid_data)
+
+print(path)
+
+solution_lons = []
+solution_lats = []
+
+for n in path:
+    coords = path_finding.grid_to_coord([n.x_pos, n.y_pos], user_options.grid_size)
+    solution_lons.append(coords[0])
+    solution_lats.append(coords[1])
+
+# lons = [user_options.orig_lon, user_options.dest_lon]
+# lats = [user_options.orig_lat, user_options.dest_lat]
+#
+plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
+plt.plot(solution_lons, solution_lats)
+plt.show()
+
+print("Program terminating.")
+sys.exit(0)
