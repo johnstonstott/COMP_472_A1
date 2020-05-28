@@ -20,8 +20,7 @@ print("-- Montreal Crime Analytics --")
 # Run function in user_options.py to collect values from user.
 # user_options.get_user_options()
 user_options.grid_size = 0.002
-user_options.threshold = 80
-
+user_options.threshold = 85
 # Open the crime_dt.shp file to read the data.
 print("\nOpening data file... ", end="")
 
@@ -81,8 +80,6 @@ dest_node = path_finding.Node(dest_node_pos[0], dest_node_pos[1], False)
 # Run A* algorithm located in path_finding.py.
 path = path_finding.find_path(orig_node, dest_node, accessible_grid, grid_data)
 
-print(path)
-
 solution_lons = []
 solution_lats = []
 
@@ -91,12 +88,14 @@ for n in path:
     solution_lons.append(coords[0])
     solution_lats.append(coords[1])
 
-# lons = [user_options.orig_lon, user_options.dest_lon]
-# lats = [user_options.orig_lat, user_options.dest_lat]
-#
-plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
-plt.plot(solution_lons, solution_lats)
-plt.show()
+if len(path) > 0:
+    print("Please close the map when you are done viewing it.")
+
+    print("\nDisplaying optimal path... ", end="")
+    plt.imshow(grid_data, extent=[constants.MIN_LON, constants.MAX_LON, constants.MIN_LAT, constants.MAX_LAT])
+    plt.plot(solution_lons, solution_lats)
+    plt.show()
+    print("Done\n")
 
 print("Program terminating.")
 sys.exit(0)

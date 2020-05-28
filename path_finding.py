@@ -5,6 +5,7 @@
 # --------------------------------------------------------
 
 import math
+import time
 from queue import PriorityQueue
 
 import constants
@@ -29,6 +30,9 @@ class Node:
 
 
 def find_path(orig, dest, node_grid, crime_grid):
+    print("\nCalculating path... ", end="")
+    start_time = time.time()
+
     # To store nodes that we need to visit.
     open_list = PriorityQueue()
     open_list.put(orig)
@@ -43,7 +47,9 @@ def find_path(orig, dest, node_grid, crime_grid):
 
         # Found a path to the solution, so return a list of predecessors to this node.
         if is_goal(curr, dest):
-            print("The optimal path has been found")
+            end_time = time.time()
+            time_elapsed = end_time - start_time
+            print("Done\n\nThe optimal path has been found in", time_elapsed, "seconds.")
             return curr.prev
 
         # Search the surrounding nodes of current.
@@ -66,8 +72,9 @@ def find_path(orig, dest, node_grid, crime_grid):
                 n.prev = n.prev + curr.prev
                 open_list.put(n)
 
-
-    print("The optimal path is not found.")
+    end_time = time.time()
+    time_elapsed = end_time - start_time
+    print("Done.\n\nThe optimal path is not found, searched for", time_elapsed, "seconds.\n")
     return []
 
 
@@ -154,6 +161,7 @@ def calculate_cost(node_a, node_b, crime_grid):
         elif grid_down_right == 0:
             return 1.5
 
+    return -1
 
 # Look in all directions and if there is a node there (not out of bounds), then add it and return the list.
 def find_neighbours(node, node_grid):
