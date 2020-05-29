@@ -54,7 +54,7 @@ def find_path(orig, dest, node_grid, crime_grid):
             end_time = time.time()
             time_elapsed = end_time - start_time
             print("Done\n\nThe optimal path has been found in", time_elapsed, "seconds.")
-            print("The cost of this path is", curr.g)
+            print(f"The cost of this path is {curr.g}.")
             return curr.prev
 
         # Search the surrounding nodes of current.
@@ -64,8 +64,11 @@ def find_path(orig, dest, node_grid, crime_grid):
         for n in neighbours:
             # Eliminate nodes that are not reachable.
             if calculate_cost(curr, n, crime_grid) == -1:
+                # print("Invalid", curr.x_pos, curr.y_pos, " to ", n.x_pos, n.y_pos)
                 neighbours.remove(n)
-                continue
+            else:
+                # print("Valid", curr.x_pos, curr.y_pos, " to ", n.x_pos, n.y_pos)
+                pass
 
             # Compute scores of the nodes.
             n.g = curr.g + calculate_cost(curr, n, crime_grid)
@@ -167,6 +170,7 @@ def calculate_cost(node_a, node_b, crime_grid):
             return 1.5
 
     return -1
+
 
 # Look in all directions and if there is a node there (not out of bounds), then add it and return the list.
 def find_neighbours(node, node_grid):
