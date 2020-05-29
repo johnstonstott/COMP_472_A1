@@ -60,7 +60,22 @@ def display_stats(array):
           "\nAverage:", calculate_average(array),
           "\nStandard deviation:", calculate_stand_dev(array),
           "\nMedian:", calculate_median(array),
-          "\nNumber of crimes in each block:\n", array, "\n")
+          "\nNumber of crimes in each block:")
+    print_array(array)
+
+
+# Used to print the array crimes array nicely.
+def print_array(array):
+    for i in range(array.shape[0]):
+        for j in range(array.shape[1]):
+            if 0 <= int(array[i][j]) < 10:
+                print(int(array[i][j]), "  ", end="")
+            elif 10 <= int(array[i][j]) < 100:
+                print(int(array[i][j]), " ", end="")
+            else:
+                print(int(array[i][j]), "", end="")
+        print("\n", end="")
+    print("\n", end="")
 
 
 # Generates a 2D array of 0's and 1's according to the threshold.
@@ -95,10 +110,12 @@ def generate_grid_data(grid_size, threshold, array):
 
     # Print info about blocked areas to user depending on the resulting situation.
     if np.max(plot_array) == 0:
-        print("No blocks were marked as high crime areas.\n")
+        print("No blocks were marked as high crime areas.")
     elif np.min(plot_array) == 1:
-        print("All blocks are marked as high crime areas.\n")
+        print("All blocks are marked as high crime areas.")
     else:
-        print("Any block with", int(cutoff_value), "or more crimes is considered a high crime area.\n")
+        print("Any block with", int(cutoff_value), "or more crimes is considered a high crime area.")
+
+    print("Please close the map when you are ready to find the optimal path.\n")
 
     return plot_array
