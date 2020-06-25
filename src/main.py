@@ -7,10 +7,7 @@
 import os
 import sys
 
-import constants
-import crime_analysis
-import user_options
-import path_finding
+import path_finding, crime_analysis, constants, user_options
 
 import shapefile
 from matplotlib import pyplot as plt
@@ -23,8 +20,8 @@ user_options.get_user_options()
 # Open the crime_dt.shp file to read the data.
 print("\nOpening data file... ", end="")
 
-if os.path.exists("crime_dt.shp"):
-    shp_file = shapefile.Reader("crime_dt.shp", encoding="ISO-8859-1")
+if os.path.exists("../data/crime_dt.shp"):
+    shp_file = shapefile.Reader("../data/crime_dt.shp", encoding="ISO-8859-1")
     data = shp_file.shapeRecords()
     print("Done\n")
 else:
