@@ -25,7 +25,7 @@ if os.path.exists("../data/crime_dt.shp"):
     data = shp_file.shapeRecords()
     print("Done\n")
 else:
-    print("File not found.\nPlease make sure the data files are in the same directory as main.py.")
+    print("File not found.\nPlease make sure the data files are in the correct folder.")
     print("Program terminating.")
     sys.exit(0)
 
