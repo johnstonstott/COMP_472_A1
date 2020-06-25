@@ -6,8 +6,7 @@
 
 import sys
 
-import constants
-import path_finding
+import path_finding, constants
 
 grid_size = 0.0
 threshold = 0

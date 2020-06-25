@@ -64,11 +64,7 @@ def find_path(orig, dest, node_grid, crime_grid):
         for n in neighbours:
             # Eliminate nodes that are not reachable.
             if calculate_cost(curr, n, crime_grid) == -1:
-                # print("Invalid", curr.x_pos, curr.y_pos, " to ", n.x_pos, n.y_pos)
                 neighbours.remove(n)
-            else:
-                # print("Valid", curr.x_pos, curr.y_pos, " to ", n.x_pos, n.y_pos)
-                pass
 
             # Compute scores of the nodes.
             n.g = curr.g + calculate_cost(curr, n, crime_grid)
